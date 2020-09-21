@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.bg {
+  background-image: url('./images/Moscow.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 675px;
+}
+
+.btn-play {
+  background-color: #8B0000;
+  color: black;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  width: 300px;
+}
