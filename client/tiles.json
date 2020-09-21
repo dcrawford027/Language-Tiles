@@ -1,0 +1,141 @@
+[    
+    {
+        "apple": {
+            "name": "apple",
+            "display": "яблоко"
+        }
+    },
+
+    { 
+        "apple_pic": {
+            "name": "apple",
+            "display":  "../images/apple_pic.png"
+        }
+    },
+
+    {
+        "dog": {
+            "name": "dog",
+            "display": "собака"
+        }
+    },
+
+    {
+        "dog_pic": {
+            "name": "dog",
+            "display": "../images/dog_pic.png"
+        }
+    },
+    
+    {
+        "goose": {
+            "name": "dog",
+            "display": "гус"
+        }
+    },
+
+    {
+        "goose_pic": {
+            "name": "goose",
+            "display": "../images/goose_pic.png"
+        }
+    },
+
+    {
+        "basketball": {
+            "name": "basketball",
+            "display": "баскетбол"
+        }
+    },
+
+    {
+        "basketball_pic": {
+            "name": "basketball",
+            "display": "../images/basketball_pic.png"
+        }
+    },
+
+    {
+        "penguin": {
+            "name": "penguin",
+            "display": "пенгвин"
+        }
+    },
+
+    {
+        "penguin_pic": {
+            "name": "penguin",
+            "display": "../images/penguin_pic.png"
+        }
+    },
+
+    {
+        "narwhal": {
+            "name": "narwhal",
+            "display": "нарвал"
+        }
+    },
+
+    {
+        "narwhal_pic": {
+            "name": "narwhal",
+            "display": "../images/narwhal_pic.png"
+        }
+    },
+
+    {
+        "burger": {
+            "name": "burger",
+            "display": "бургер"
+        }
+    },
+
+    {
+        "burger_pic": {
+            "name": "burger",
+            "display": "../images/burger_pic.png"
+        }
+    },
+
+    {
+        "omelet": {
+            "name": "omlet",
+            "display": "омлет"
+        }
+    },
+
+    {
+        "omelet_pic": {
+            "name": "omlet",
+            "display": "../images/omelet_pic.png"
+        }
+    },
+
+    {
+        "telephone": {
+            "name": "telephone",
+            "display": "телефоoн"
+        }
+    },
+
+    {
+        "telephone_pic": {
+            "name": "telephone",
+            "display": "../images/telephone_pic.png"
+        }
+    },
+
+    {
+        "fruit": {
+            "name": "fruit",
+            "display": "фрукт"
+        }
+    },
+
+    {      
+        "fruit_pic": {
+            "name": "fruit",
+            "display": "../images/fruit_pic.png"
+        }
+    }
+]
