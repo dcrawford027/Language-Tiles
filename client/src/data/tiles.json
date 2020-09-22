@@ -197,6 +197,6 @@
     {      
         "name": "candy",
         "display": "<img src='/images/candy_pic.jpeg' alt='flamingo' width='100' height='100'>"
-    },
+    }
 
 ]
