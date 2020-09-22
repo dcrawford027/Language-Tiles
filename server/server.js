@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sockets = require('socket.io');
-const Message = require('./server/models/message.model');
+const Message = require('./server/models/tiles.model');
 
 const app = express();
 const PORT = 8000;

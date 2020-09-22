@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
-const MessageSchema = new mongoose.Schema(
+const TilesSchema = new mongoose.Schema(
   {
     name: String,
     content: String,
     type: String
   },
+  
   {timestamps: true}
 );
 
-const Message = new mongoose.model('Message', MessageSchema);
+const Message = new mongoose.model('Message', TilesSchema);
 module.exports = Message;
