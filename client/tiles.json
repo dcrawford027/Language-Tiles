@@ -137,5 +137,62 @@
             "name": "fruit",
             "display": "../images/fruit_pic.png"
         }
+    },
+
+    {
+        "cat": {
+            "name": "cat",
+            "display": "кошка"
+        }
+    },
+
+    {      
+        "cat_pic": {
+            "name": "cat",
+            "display": "../images/cat_pic.png"
+        }
+    },
+
+    {
+        "bread": {
+            "name": "bread",
+            "display": "хлеб"
+        }
+    },
+
+    {      
+        "bread_pic": {
+            "name": "bread",
+            "display": "../images/bread_pic.png"
+        }
+    },
+
+    {
+        "pizza": {
+            "name": "pizza",
+            "display": "пицца"
+        }
+    },
+
+    {      
+        "pizza_pic": {
+            "name": "pizza",
+            "display": "../images/pizza_pic.png"
+        }
+    },
+
+    {
+        "bread": {
+            "name": "bread",
+            "display": "хлеб"
+        }
+    },
+
+    {      
+        "bread_pic": {
+            "name": "bread",
+            "display": "../images/bread_pic.png"
+        }
     }
+
 ]
