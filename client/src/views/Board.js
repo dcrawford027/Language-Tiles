@@ -10,17 +10,21 @@ export default props => {
 
     const startGame = () => {
         for (let i = 1; i <= 3; i++) {
-            const topCard = shuffled.shift();
+            let topCard = shuffled.shift();
             setShuffled(shuffled);
             handOne.push(topCard);
             setHandOne(handOne);
+            topCard = shuffled.shift();
+            setShuffled(shuffled);
+            handTwo.push(topCard);
+            setHandTwo(handTwo);
         }
         setCardsDelt(true);
     }
 
     return (
         <div className="row" style={{height: 600}}>
-            { console.log(handOne) }
+            { console.log(shuffled) }
             <div className="col-sm-3 border border-dark rounded m-1 h-100">
                 <p>Opponent's Matches: 2</p>
                 <p>Your Matches: 3</p>
