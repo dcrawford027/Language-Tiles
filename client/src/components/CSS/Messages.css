@@ -1,0 +1,32 @@
+.Messages > div {
+    margin: 0 auto;
+  }
+  
+  .Messages .msg-box {
+    height: 500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  
+  .Message {
+    margin: 20px;
+  }
+  
+  .system-msg {
+    align-self: flex-end;
+    font-style: italic;
+  }
+  
+  .user-msg, .other-msg {
+    width: 300px;
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 10px;
+  }
+  
+  .user-msg {
+    align-self: flex-end;
+  }
+  
