@@ -1,7 +1,7 @@
 import React from 'react';
 import MessagesView from './MessagesView';
 
-const Messages = ({name, messages, handleNewMessage}) => {
+const Messages = ({name, messages, roomName, handleNewMessage}) => {
   console.log(name, messages);
 
   const handleMessageSubmit = e => {
@@ -9,6 +9,7 @@ const Messages = ({name, messages, handleNewMessage}) => {
     const newMessage = {
       name: name,
       content: e.target['message'].value,
+      roomName: roomName,
       type: "userMessage"
     };
     e.target['message'].value = '';
@@ -17,6 +18,7 @@ const Messages = ({name, messages, handleNewMessage}) => {
 
   return <MessagesView
     name={name}
+    roomName={roomName}
     messages={messages}
     handleMessageSubmit={handleMessageSubmit} />
 }

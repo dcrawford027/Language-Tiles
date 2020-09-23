@@ -16,7 +16,7 @@ const ChatView = ({socket, name, setName, roomName, setRoomName, messages, handl
             roomName={roomName}
             messages={messages}
             handleNewMessage={handleNewMessage} />
-          : <NameForm socket={socket} setName={setName} setRoomName={setRoomName}/>
+          : <NameForm socket={socket} setName={setName} roomName={roomName}setRoomName={setRoomName}/>
       }
     </section>
   );

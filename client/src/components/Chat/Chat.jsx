@@ -12,9 +12,10 @@ const Chat = () => {
   // const [chatLog, setChatLog] = useState([]); // added on 9/22
 
   const handleNewMessage = (newMessage, isSending=false) => {
-    console.log(messages);
-    socket.emit('message', { room: roomName, message: messages }); // added on 9/22
-    setMessages(prevMessages => [...prevMessages, newMessage]);
+    console.log(roomName);
+    socket.emit('messages', { room: roomName, message: messages }); // added on 9/22
+    // setMessages(prevMessages => [...prevMessages, newMessage]);
+    setMessages([...messages, newMessage]); // added on 9/23
     if (isSending) {
       socket.emit('createMessage', newMessage);
     }
@@ -24,7 +25,7 @@ const Chat = () => {
     socket.on('firstConnect', data => {
       setMessages(data);
     });
-    socket.on('newMessage', data => handleNewMessage(data));
+    socket.on('newMessage', data => handleNewMessage(data)); 
     return () => socket.disconnect(true);
   }, []);
 

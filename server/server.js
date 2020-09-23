@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const sockets = require('socket.io');
 const Message = require('./server/models/tiles.model');
+// const { default: Messages } = require('./client/src/components/Messages/Messages');
 
 const app = express();
 const PORT = 8000;
@@ -20,13 +21,21 @@ io.on("connection", async function(socket) {
 
     socket.on('joinroom', data => {
         socket.join(data);
+        console.log(Object.keys(io.sockets.connected)); // all users sitting in lobby
+        console.log(io.of('/').adapter.clients);
+        socket.emit('showConnected'); // added on 9/23
     });
 
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} has disconnected`);
     });
 
+    socket.on('messages', data => { // added on 9/23 need to add this in server side instead
+        socket.to(data.roomName).emit('messages', data.content);
+        Message.create(data); // added on 9/23
+    });
+    
     socket.on('createMessage', async data => {
-    socket.broadcast.emit('newMessage', await Message.create(data));
+        socket.broadcast.emit('newMessage', await Message.create(data));
     });
 });

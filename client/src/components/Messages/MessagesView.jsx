@@ -4,7 +4,7 @@ import {Col, Row} from 'react-bootstrap';
 import '../CSS/Messages.css';
 import Message from './Message';
 
-const MessagesView = ({name, messages, handleMessageSubmit}) => {
+const MessagesView = ({name, messages, roomName, handleMessageSubmit}) => {
   const msgBox = useRef();
 
   useEffect(() => {
@@ -17,6 +17,7 @@ const MessagesView = ({name, messages, handleMessageSubmit}) => {
         <h2 className="text-center">Messages</h2>
         <div className="msg-box" ref={msgBox}>
           {
+            // messages.filter((message) => message.roomName = roomName) // added 9/23
             messages.map((message, i) => {
               return <Message name={name} key={i} message={message} />
             })
