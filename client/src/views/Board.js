@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useDrag } from 'react-dnd';
 import deck from '../data/tiles.json';
 import Card from '../components/Card';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {v1 as uuid} from 'uuid';
 
 export default props => {
     const [shuffled, setShuffled] = useState(deck.sort(() => Math.random() - 0.5));
@@ -19,20 +20,21 @@ export default props => {
         setCardsDelt(true);
     }
 
-    const drop = e => {
-        e.preventDefault();
-        const card_id = e.dataTransfer.getData('card_id');
+    const itemsFromDnD = [
+        { id: uuid(), content: 'First Row' },
+        { id: uuid(), content: 'Second Row' }
+    ];
 
-        const card = document.getElementById(card_id)
-
-        card.style.display = 'block';
-
-        e.target.appendChild(card);
+    const RowsFromDnd = [
+        {
+            [uuid()]: {
+                name: 'Hand',
+                items: [itemsFromDnD]
+            }
         }
+    ];
 
-    const dragOver = e => {
-        e.preventDefault();
-    }
+    const [rows, setRows] = useState(itemsFromDnD)
 
     return (
         <div className="row" style={{height: 600}}>
@@ -43,27 +45,42 @@ export default props => {
                 <button className="btn btn-success" onClick={startGame}>Start Game</button>
             </div>
             <div className="col-sm-8">
-                <div className="row border border-dark rounded m-1 h-50 p-1"></div>
                 <div className="row border border-dark rounded m-1 h-50 p-1">
-                    {
-                        cardsDelt ?
-                        handOne.map((card, index) => 
-                            <Card key={index} thisCard={card}/>
-                        )
-                        : ''
-                    }
+                    <DragDropContext onDropEnd={result => console.log(result)}>
+                        {Object.entries(rows).map(([id, row]) => {
+                            return (
+                                    <Droppable droppableID={id}>
+                                        {(provided, snapshot) => {
+                                            return (
+                                                <div
+                                                {...provided.droppableProps}
+                                                ref={provided.innerRef}
+                                                style={{
+                                                    background: snapshot.isDraggingOver ? 'lightgrey' : 'white', 
+                                                }}
+                                            >
+                                            </div>
+                                            )
+                                        }}
+                                    </Droppable>
+                            )
+                        }
+                        )}
+                    </DragDropContext>
                 </div>
-            </div>
-            <div 
-                id={props.id}
-                className = {props.className}
-                onDrop={drop}
-                onDragOver={dragOver}
-            >
-                { props.children }
 
+                <DragDropContext>
+                    <div className="row border border-dark rounded m-1 h-50 p-1">
+                        {
+                            cardsDelt ?
+                            handOne.map((card, index) => 
+                                <Card key={index} thisCard={card}/>
+                            )
+                            : ''
+                        }
+                    </div>
+                </DragDropContext>    
             </div>
-
         </div>
     )
 }
