@@ -69,17 +69,15 @@ export default props => {
                     </DragDropContext>
                 </div>
 
-                <DragDropContext>
-                    <div className="row border border-dark rounded m-1 h-50 p-1">
-                        {
-                            cardsDelt ?
-                            handOne.map((card, index) => 
-                                <Card key={index} thisCard={card}/>
-                            )
-                            : ''
-                        }
-                    </div>
-                </DragDropContext>    
+                <div className="row border border-dark rounded m-1 h-50 p-1">
+                    {
+                        cardsDelt ?
+                        handOne.map((card, index) => 
+                            <Card key={index} thisCard={card}/>
+                        )
+                        : ''
+                    }
+                </div> 
             </div>
         </div>
     )

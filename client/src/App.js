@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Router } from '@reach/router';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Home from './views/Home';
 import Games from './views/Games';
