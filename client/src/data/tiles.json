@@ -1,104 +1,121 @@
 [    
     {
+        "id": 1,
         "name": "apple",
         "display": "<h5 className='text-center'>яблоко</h5>"
     },
 
     { 
+        "id": 2,
         "name": "apple",
         "display":  "<img src='/images/apple_pic.jpg' alt='apple' width='100' height='100'>"
     },
 
     {
+        "id": 3,
         "name": "dog",
         "display": "<h5 className='text-center'>собака</h5>"
     },
 
     {
+        "id": 4,
         "name": "dog",
         "display": "<img src='/images/dog_pic.jpg' alt='dog' width='100' height='100'>"
     },
     
     {
+        "id": 5,
         "name": "goose",
         "display": "<h5 className='text-center'>гус</h5>"
     },
 
     {
+        "id": 6,
         "name": "goose",
         "display": "<img src='/images/goose_pic.jpg' alt='goose' width='100' height='100'>"
     },
 
     {
+        "id": 7,
         "name": "basketball",
         "display": "<h5 className='text-center'>баскетбол</h5>"
     },
 
     {
+        "id": 8,
         "name": "basketball",
         "display": "<img src='/images/basketball_pic.jpg' alt='basketball' width='100' height='100'>"
     },
 
     {
+        "id": 9,
         "name": "penguin",
         "display": "<h5 className='text-center'>пенгвин</h5>"
     },
 
     {
+        "id": 10,
         "name": "penguin",
         "display": "<img src='/images/penguin_pic.jpg' alt='penguin' width='100' height='100'>"
     },
 
     {
+        "id": 11,
         "name": "narwhal",
         "display": "<h5 className='text-center'>нарвал</h5>"
     },
 
     {
+        "id": 12,
         "name": "narwhal",
         "display": "<img src='/images/narwhal_pic.jpg' alt='narwhal' width='100' height='100'>"
     },
 
     {
+        "id": 13,
         "name": "burger",
         "display": "<h5 className='text-center'>бургер</h5>"
     },
 
     {
+        "id": 14,
         "name": "burger",
         "display": "<img src='/images/burger_pic.png' alt='burger' width='100' height='100'>"
     },
 
     {
+        "id": 15,
         "name": "omelet",
         "display": "<h5 className='text-center'>омлет</h5>"
     },
 
-{
+    {
+        "id": 16,
         "name": "omelet",
         "display": "<img src='/images/omelet_pic.png' alt='omelet' width='100' height='100'>"
     },
 
     {
+        "id": 17,
         "name": "telephone",
         "display": "<h5 className='text-center'>телефон</h5>"
     },
 
     {
+        "id": 18,
         "name": "telephone",
         "display": "<img src='/images/telephone_pic.png' alt='telephone' width='100' height='100'>"
     },
 
     {
+        "id": 19,
         "name": "fruit",
         "display": "<h5 className='text-center'>фрукт</h5>"
     },
 
-    {      
+    {
+        "id": 20,
         "name": "fruit",
         "display": "<img src='/images/fruit_pic.jpeg' alt='fruit' width='100' height='100'>"
     }
-    
-    
-
 ]

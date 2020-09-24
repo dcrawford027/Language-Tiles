@@ -5,7 +5,7 @@ import {v1 as uuid} from 'uuid';
 
 
 export default props => {
-    const { thisCard } = props;
+    const { thisCard, id } = props;
     const [card, setCard] = useState({
         name: '',
         display: ''
