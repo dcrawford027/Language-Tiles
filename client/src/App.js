@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Home path="/"/>
         <Games path="/games"/>
-        <Board path="/games/:id"/>
+        <Board path="/games/:roomName"/>
       </Router>
     </div>
   );
