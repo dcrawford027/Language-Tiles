@@ -136,7 +136,7 @@
 
     {      
         "name": "tea",
-        "display": "<img src='/images/tea_pic.jpeg' alt='tea' width='100' height='100'>"
+        "display": "<img src='/images/tea_pic.png' alt='tea' width='100' height='100'>"
     },
 
     {

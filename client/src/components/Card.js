@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useDrag } from 'react-dnd';
+
 
 export default props => {
     const { thisCard } = props;
@@ -14,6 +16,8 @@ export default props => {
         })
         console.log(card);
     }, [])
+
+    
 
     return (
         <div className="card m-1" style={{height: 150, width: 150}}>

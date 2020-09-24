@@ -38,7 +38,7 @@
 }
 
 .bg {
-  background-image: url('./images/Moscow.jpg');
+  background-image: url('assets/Moscow.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 675px;
