@@ -37,6 +37,10 @@
   }
 }
 
+* {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .bg {
   background-image: url('assets/Moscow.jpg');
   background-repeat: no-repeat;
@@ -44,11 +48,25 @@
   height: 675px;
 }
 
+.home-text {
+  color: beige;
+  font-size: 15rem;
+  text-shadow: 2px 2px 5px #8B0000;  
+}
+
 .btn-play {
   background-color: #8B0000;
-  color: black;
+  color: beige;
   border: none;
   padding: 10px;
   text-align: center;
-  width: 300px;
+  width: 200px;
+  border-radius: 10px;
+  font-size: 20px;
+  transition-duration: 0.4s;
+  text-decoration: none;
+}
+
+.btn-play:hover {
+  background: lightcoral;
 }
