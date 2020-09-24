@@ -1,0 +1,202 @@
+[    
+    {
+        "name": "apple",
+        "display": "<h5 className='text-center'>яблоко</h5>"
+    },
+
+    { 
+        "name": "apple",
+        "display":  "<img src='/images/apple_pic.jpg' alt='apple' width='100' height='100'>"
+    },
+
+    {
+        "name": "dog",
+        "display": "<h5 className='text-center'>собака</h5>"
+    },
+
+    {
+        "name": "dog",
+        "display": "<img src='/images/dog_pic.jpg' alt='dog' width='100' height='100'>"
+    },
+    
+    {
+        "name": "dog",
+        "display": "<h5 className='text-center'>гус</h5>"
+    },
+
+    {
+        "name": "goose",
+        "display": "<img src='/images/goose_pic.jpg' alt='goose' width='100' height='100'>"
+    },
+
+    {
+        "name": "basketball",
+        "display": "<h5 className='text-center'>баскетбол</h5>"
+    },
+
+    {
+        "name": "basketball",
+        "display": "<img src='/images/basketball_pic.jpg' alt='basketball' width='100' height='100'>"
+    },
+
+    {
+        "name": "penguin",
+        "display": "<h5 className='text-center'>пенгвин</h5>"
+    },
+
+    {
+        "name": "penguin",
+        "display": "<img src='/images/penguin_pic.jpg' alt='penguin' width='100' height='100'>"
+    },
+
+    {
+        "name": "narwhal",
+        "display": "<h5 className='text-center'>нарвал</h5>"
+    },
+
+    {
+        "name": "narwhal",
+        "display": "<img src='/images/narwhal_pic.jpg' alt='narwhal' width='100' height='100'>"
+    },
+
+    {
+        "name": "burger",
+        "display": "<h5 className='text-center'>бургер</h5>"
+    },
+
+    {
+        "name": "burger",
+        "display": "<img src='/images/burger_pic.png' alt='burger' width='100' height='100'>"
+    },
+
+    {
+        "name": "omelet",
+        "display": "<h5 className='text-center'>омлет</h5>"
+    },
+
+{
+        "name": "omelet",
+        "display": "<img src='/images/omelet_pic.png' alt='omelet' width='100' height='100'>"
+    },
+
+    {
+        "name": "telephone",
+        "display": "<h5 className='text-center'>телефон</h5>"
+    },
+
+    {
+        "name": "telephone",
+        "display": "<img src='/images/telephone_pic.png' alt='telephone' width='100' height='100'>"
+    },
+
+    {
+        "name": "fruit",
+        "display": "<h5 className='text-center'>фрукт</h5>"
+    },
+
+    {      
+        "name": "fruit",
+        "display": "<img src='/images/fruit_pic.jpeg' alt='fruit' width='100' height='100'>"
+    },
+    
+    {
+        "name": "cat",
+        "display": "<h5 className='text-center'>кошка</h5>"
+    },
+
+    {      
+        "name": "cat",
+        "display": "<img src='/images/cat_pic.jpeg' alt='cat' width='100' height='100'>"
+    },
+
+    {
+        "name": "bread",
+        "display": "<h5 className='text-center'>хлеб</h5>"
+    },
+
+    {      
+        "name": "bread",
+        "display": "<img src='/images/bread_pic.jpeg' alt='bread' width='100' height='100'>"
+    },
+
+    {
+        "name": "pizza",
+        "display": "<h5 className='text-center'>пицца</h5>"
+    },
+
+    {      
+        "name": "pizza",
+        "display": "<img src='/images/pizza_pic.jpeg' alt='pizza' width='100' height='100'>"
+    },
+
+    {
+        "name": "tea",
+        "display": "<h5 className='text-center'>чай</h5>"
+    },
+
+    {      
+        "name": "tea",
+        "display": "<img src='/images/tea_pic.jpeg' alt='tea' width='100' height='100'>"
+    },
+
+    {
+        "name": "hedgehog",
+        "display": "<h5 className='text-center'>ёжик</h5>"
+    },
+
+    {      
+        "name": "hedgehog",
+        "display": "<img src='/images/hedgehog_pic.jpeg' alt='hedgehog' width='100' height='100'>"
+    },
+
+    {
+        "name": "zebra",
+        "display": "<h5 className='text-center'>зебра</h5>"
+    },
+
+    {      
+        "name": "zebra",
+        "display": "<img src='/images/zebra_pic.jpeg' alt='zebra' width='100' height='100'>"
+    },
+
+    {
+        "name": "turtle",
+        "display": "<h5 className='text-center'>черепаха</h5>"
+    },
+
+    {      
+        "name": "turtle",
+        "display": "<img src='/images/turtle_pic.jpeg' alt='turtle' width='100' height='100'>"
+    },
+
+    {
+        "name": "flamingo",
+        "display": "<h5 className='text-center'>фламинго</h5>"
+    },
+
+    {      
+        "name": "flamingo",
+        "display": "<img src='/images/flamingo_pic.jpeg' alt='flamingo' width='100' height='100'>"
+    },
+
+    {
+        "name": "tequila",
+        "display": "<h5 className='text-center'>текила</h5>"
+    },
+
+    {      
+        "name": "tequila",
+        "display": "<img src='/images/flamingo_pic.jpeg' alt='flamingo' width='100' height='100'>"
+    },
+
+    {
+        "name": "candy",
+        "display": "<h5 className='text-center'>конфеты</h5>"
+    },
+
+    {      
+        "name": "candy",
+        "display": "<img src='/images/candy_pic.jpeg' alt='flamingo' width='100' height='100'>"
+    }
+
+]
