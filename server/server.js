@@ -1,22 +1,31 @@
 const express = require('express');
 const cors = require('cors');
 const sockets = require('socket.io');
-const Message = require('./server/models/message.model');
+const Message = require('./models/tiles.model');
 
 const app = express();
 const PORT = 8000;
 
-require('./server/config/mongoose.config');
+require('./config/mongoose.config');
 app.use(cors());
 app.use(express.json(), express.urlencoded({extended: true}));
 
 const server = app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 const io = sockets(server);
-io.on("connection", async function(socket) {
-    socket.emit("firstConnect", await Message.find({}));
+io.on("connection", socket => {
+    console.log(`${socket.id} has joined the channel!`);
+    socket.emit("handshake");
 
-    socket.on('createMessage', async data => {
-    socket.broadcast.emit('newMessage', await Message.create(data));
+    socket.on('joinRoom', roomName => {
+        socket.join(roomName);
+    });
+
+    socket.on('message', data => {
+        socket.to(data.room).emit('message', data.message);
+    })
+
+    socket.on('createMessage', data => {
+        socket.broadcast.emit('newMessage', Message.create(data));
     });
 });
