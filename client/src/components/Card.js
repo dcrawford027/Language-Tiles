@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+
+
 export default props => {
     const { thisCard, id } = props;
     const [card, setCard] = useState({
@@ -15,9 +17,12 @@ export default props => {
         console.log(card);
     }, [])
 
+
     return (
-        <div className="card m-1" style={{height: 150, width: 150}} id={id}>
-            <div className="card-body text-center" dangerouslySetInnerHTML={{__html: card.display}}></div>
+        <div className="Box">
+            <div className="card m-1" style={{height: 150, width: 150}} id={id} >
+                <div className="card-body text-center" dangerouslySetInnerHTML={{__html: card.display}}></div>
+            </div>
         </div>
     )
 }
