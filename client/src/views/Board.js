@@ -115,51 +115,52 @@ export default props => {
     socket.on('message', data => setChatLog([...chatLog, data]));
 
     return (
-        <div className="row" style={{height: 700}}>
-            <div className="col-sm-3 border border-dark rounded m-1 h-100">
-                <p>Total Matches: {playerScore}</p>
-                <p>Tiles Left in Deck: {shuffled.length}</p>
-                <button className="btn btn-success d-block mb-2" onClick={drawTile} disabled={hasDrawn}>Draw</button>
-                <button className="btn btn-info d-block mb-2" onClick={playTile} disabled={hasPlayedTile}>Play Tile</button>
-                <button className="btn btn-primary d-block mb-2" onClick={() => checkMatch(table)}>Check Match</button>
-                <div className="border border-dark mb-2 w-100" readOnly style={{overflowY: 'auto', height: 300}}>
-                    <ul style={{listStyle: "none"}}>
+        <div className="wrapper">
+            <div className="row" style={{height: 700}}>
+                <div className="col-sm-3 border border-dark rounded m-1 p-3 h-100">
+                    <p>Total Matches: {playerScore}</p>
+                    <p>Tiles Left in Deck: {shuffled.length}</p>
+                    <button className="btn btn-success d-block mb-2" onClick={drawTile} disabled={hasDrawn}>Draw</button>
+                    <button className="btn btn-info d-block mb-2" onClick={playTile} disabled={hasPlayedTile}>Play Tile</button>
+                    <button className="btn btn-primary d-block mb-2" onClick={() => checkMatch(table)}>Check Match</button>
+                    <div className="border border-dark mb-2 w-100" readOnly style={{overflowY: 'auto', height: 300}}>
+                        <ul style={{listStyle: "none"}}>
+                            {
+                                chatLog.map((mess, i) => 
+                                    <li key={i} style={{marginLeft: -35}}>{mess}</li>
+                                )
+                            }
+                        </ul>
+                    </div>
+                    <form onSubmit={submitHandler}>
+                        <input type="text" name="message" className="form-control d-block mb-2" onChange={e => setMessage(e.target.value)} value={message}/>
+                        <button type="submit" className="btn btn-primary offset-3">Message</button>
+                    </form>
+                </div>
+                <div className="col-sm-8">
+                    <div className="row border border-dark rounded m-1 h-50 p-2">
                         {
-                            chatLog.map((mess, i) => 
-                                <li key={i} style={{marginLeft: -35}}>{mess}</li>
-                            )
-                        }
-                    </ul>
-                </div>
-                <form onSubmit={submitHandler}>
-                    <input type="text" name="message" className="form-control d-block mb-2" onChange={e => setMessage(e.target.value)} value={message}/>
-                    <button type="submit" className="btn btn-primary">Message</button>
-                </form>
-            </div>
-            <div className="col-sm-8">
-                <div className="row border border-dark rounded m-1 h-50 p-1">
-                    {
-                        table.map((playedTile, i) => 
-                            <div key={i} id={playedTile.id} className="card m-1" style={{height: 150, width: 150}}>
-                                <div className="card-body text-center" dangerouslySetInnerHTML={{__html: playedTile.display}}></div>
-                            </div>
-                        )
-                    }
-                </div>
-                <div className="row border border-dark rounded m-1 h-50 p-1" id="hand">
-                    {
-                        cardsDelt ?
-                            hand.map((tile, i) => 
-                                <div key={i} id={tile.id} className="card m-1" style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)}>
-                                    <div className="card-body text-center" dangerouslySetInnerHTML={{__html: tile.display}}></div>
+                            table.map((playedTile, i) => 
+                                <div key={i} id={playedTile.id} className="card m-1" style={{height: 150, width: 150}}>
+                                    <div className="card-body text-center" dangerouslySetInnerHTML={{__html: playedTile.display}}></div>
                                 </div>
                             )
-                        :
-                        <button className="btn btn-success offset-4 col-sm-4 h-25" onClick={startGame}>Start Game</button>
-                    }
-                </div>
+                        }
+                    </div>
+                    <div className="row border border-dark rounded m-1 h-50 p-2" id="hand">
+                        {
+                            cardsDelt ?
+                                hand.map((tile, i) => 
+                                    <div key={i} id={tile.id} className="card m-1" style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)}>
+                                        <div className="card-body text-center" dangerouslySetInnerHTML={{__html: tile.display}}></div>
+                                    </div>
+                                )
+                            :
+                            <button className="btn-playgame btn-success offset-4 col-sm-4 h-25" onClick={startGame}>Start Game</button>
+                        }
+                    </div>
+                </div>  
             </div>
-        
         </div>
     
     )
