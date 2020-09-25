@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { Link, navigate } from '@reach/router';
-import io from 'socket.io-client';
 
 export default () => {
-    const [socket] = useState(() => io(':8000'));
     const [roomName, setRoomName] = useState('');
-
-    socket.on('handshake', () => console.log(`Client ${socket.id} is here.`));
 
     const createRoom = e => {
         e.preventDefault();

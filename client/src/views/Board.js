@@ -4,12 +4,9 @@ import io from 'socket.io-client';
 
 export default props => {
     const { roomName } = props;
-    const [socket] = useState(() => io(':8000'))
-    const [players, setPlayers] = useState([]);
-    const [playerOne, setPlayerOne] = useState(false);
+    const [socket] = useState(() => io(':8000'));
     const [shuffled, setShuffled] = useState(deck.sort(() => Math.random() - 0.5));
-    const [handOne, setHandOne] = useState([]);
-    const [handTwo, setHandTwo] = useState([]);
+    const [hand, setHand] = useState([]);
     const [cardsDelt, setCardsDelt] = useState(false);
     const [selectedTile, setSelectedTile] = useState({
         id: 0,
@@ -17,72 +14,58 @@ export default props => {
         display: ''
     });
     const [table, setTable] = useState([]);
-    const [playerOneScore, setPlayerOneScore] = useState(0);
+    const [playerScore, setPlayerScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [hasDrawn, setHasDrawn] = useState(false);
     const [hasPlayedTile, setHasPlayedTile] = useState(false);
-    const [canCheckMatch, setCanCheckMatch] = useState(true);
     const [message, setMessage] = useState('');
     const [chatLog, setChatLog] = useState([]);
 
-    socket.on('message', data => setChatLog([...chatLog, data]));
-
     const startGame = () => {
-        let startHandOne = [];
-        let startHandTwo = [];
+        let startHand = [];
         for (let i = 1; i <= 3; i++) {
             let topCard = shuffled.shift();
             setShuffled(shuffled);
-            startHandOne.push(topCard);
-            topCard = shuffled.shift();
-            setShuffled(shuffled);
-            startHandTwo.push(topCard);
+            startHand.push(topCard);
         }
-        setHandOne([...handOne, ...startHandOne]);
-        setHandTwo([...handTwo, ...startHandTwo]);
+        setHand([...hand, ...startHand]);
         setCardsDelt(true);
     }
 
     useEffect(() => {
-        socket.emit('joinRoom', roomName)
-        setPlayers([...players, socket.id]);
-        console.log(socket.id);
-        console.log(roomName);
+        socket.on('handshake', () => console.log(`${socket.id} is here!`));
+        socket.emit('joinRoom', roomName);
     }, []);
 
     const drawTile = () => {
         if (shuffled.length > 0) {
             let topTile = shuffled.shift();
             setShuffled(shuffled);
-            setHandOne([...handOne, topTile]);
+            setHand([...hand, topTile]);
             setHasDrawn(true);
         }
     }
 
     const selectTile = tileId => {
-        let tile = handOne.find(function(t) {
+        let tile = {};
+        tile = hand.find(function(t) {
             return t.id === tileId
         });
-        console.log(tile);
         setSelectedTile({
             id: tile.id,
             name: tile.name,
             display: tile.display
         });
-        console.log(selectedTile);
     }
 
     const playTile = () => {
         if (selectedTile.name !== '') {
-            let newHandOne = handOne.filter(t => t.id !== selectedTile.id);
-            setHandOne(newHandOne);
+            let newHand = hand.filter(t => t.id !== selectedTile.id);
+            setHand(newHand);
             let playedTile = selectedTile;
             setTable([...table, playedTile]);
             setSelectedTile({ id: 0, name: '', display: '' });
             setHasPlayedTile(true);
-            if (hasDrawn) {
-                setCanCheckMatch(false);
-            }
         }
     }
 
@@ -101,13 +84,12 @@ export default props => {
                 match = key;
                 let newTable = table.filter(t => t.name !== match);
                 setTable(newTable);
-                let newScore = playerOneScore + 1;
-                setPlayerOneScore(newScore);
+                let newScore = playerScore + 1;
+                setPlayerScore(newScore);
             } 
         }
         setHasDrawn(false);
         setHasPlayedTile(false);
-        setCanCheckMatch(true);
         setGameOver(checkEndGame());
         if (gameOver) {
             alert("Congratulations! You won!");
@@ -115,7 +97,7 @@ export default props => {
     }
 
     const checkEndGame = () => {
-        if (shuffled.length <= 0 && handOne.length <= 0 && table.length <= 0) {
+        if (shuffled.length <= 0 && hand.length <= 0 && table.length <= 0) {
             return true;
         } else {
             return false;
@@ -129,15 +111,17 @@ export default props => {
         setMessage('');
     }
 
+    
+    socket.on('message', data => setChatLog([...chatLog, data]));
+
     return (
         <div className="row" style={{height: 700}}>
             <div className="col-sm-3 border border-dark rounded m-1 h-100">
-                <p>Player One's Matches: {playerOneScore}</p>
-                <p>Player Two's Matches: 0</p>
+                <p>Total Matches: {playerScore}</p>
                 <p>Tiles Left in Deck: {shuffled.length}</p>
                 <button className="btn btn-success d-block mb-2" onClick={drawTile} disabled={hasDrawn}>Draw</button>
                 <button className="btn btn-info d-block mb-2" onClick={playTile} disabled={hasPlayedTile}>Play Tile</button>
-                <button className="btn btn-primary d-block mb-2" onClick={() => checkMatch(table)} disabled={canCheckMatch}>Check Match</button>
+                <button className="btn btn-primary d-block mb-2" onClick={() => checkMatch(table)}>Check Match</button>
                 <div className="border border-dark mb-2 w-100" readOnly style={{overflowY: 'auto', height: 300}}>
                     <ul style={{listStyle: "none"}}>
                         {
@@ -165,20 +149,13 @@ export default props => {
                 <div className="row border border-dark rounded m-1 h-50 p-1" id="hand">
                     {
                         cardsDelt ?
-                            playerOne ? 
-                                handOne.map((tile, i) => 
-                                    <div key={i} id={tile.id} className="card m-1" style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)}>
-                                        <div className="card-body text-center" dangerouslySetInnerHTML={{__html: tile.display}}></div>
-                                    </div>
-                                )
-                                :
-                                handTwo.map((tile, i) => 
-                                    <div key={i} id={tile.id} className="card m-1" style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)}>
-                                        <div className="card-body text-center" dangerouslySetInnerHTML={{__html: tile.display}}></div>
-                                    </div>
-                                )
+                            hand.map((tile, i) => 
+                                <div key={i} id={tile.id} className="card m-1" style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)}>
+                                    <div className="card-body text-center" dangerouslySetInnerHTML={{__html: tile.display}}></div>
+                                </div>
+                            )
                         :
-                        <button className="btn btn-success" onClick={startGame}>Start Game</button>
+                        <button className="btn btn-success offset-4 col-sm-4 h-25" onClick={startGame}>Start Game</button>
                     }
                 </div>
             </div>

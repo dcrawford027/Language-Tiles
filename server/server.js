@@ -15,17 +15,18 @@ const server = app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
 const io = sockets(server);
 io.on("connection", socket => {
     console.log(`${socket.id} has joined the channel!`);
+
     socket.emit("handshake");
 
-    socket.on('joinRoom', roomName => {
-        socket.join(roomName);
+    socket.on('joinRoom', data => {
+        socket.join(data);
     });
+
+    socket.on('disconnect', () => {
+        console.log(`${socket.id} has left the channel`);
+    })
 
     socket.on('message', data => {
         socket.to(data.room).emit('message', data.message);
-    })
-
-    socket.on('createMessage', data => {
-        socket.broadcast.emit('newMessage', Message.create(data));
     });
 });
