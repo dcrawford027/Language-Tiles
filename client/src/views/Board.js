@@ -1,21 +1,12 @@
 import React, { useEffect, useState, Component, Fragment } from 'react';
 import deck from '../data/tiles.json';
-import Card from '../components/Card';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useDrop } from 'react-dnd';
-import { useDrag } from 'react-dnd';
-import { ItemTypes } from '../utilities/items';
-
-export const CardContext = React.createContext({
-    selectedTile: null
-}) 
-
+import io from 'socket.io-client';
 
 export default props => {
+    const { roomName } = props;
+    const [socket] = useState(() => io(':8000'));
     const [shuffled, setShuffled] = useState(deck.sort(() => Math.random() - 0.5));
-    const [handOne, setHandOne] = useState([]);
-    const [handTwo, setHandTwo] = useState([]);
+    const [hand, setHand] = useState([]);
     const [cardsDelt, setCardsDelt] = useState(false);
     const [selectedTile, setSelectedTile] = useState({
         id: 0,
@@ -23,57 +14,54 @@ export default props => {
         display: ''
     });
     const [table, setTable] = useState([]);
-    const [playerOneScore, setPlayerOneScore] = useState(0);
+    const [playerScore, setPlayerScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [hasDrawn, setHasDrawn] = useState(false);
     const [hasPlayedTile, setHasPlayedTile] = useState(false);
+    const [message, setMessage] = useState('');
+    const [chatLog, setChatLog] = useState([]);
 
     const startGame = () => {
-        let startHandOne = [];
+        let startHand = [];
         for (let i = 1; i <= 3; i++) {
             let topCard = shuffled.shift();
             setShuffled(shuffled);
-            startHandOne.push(topCard);
+            startHand.push(topCard);
         }
-            setHandOne([...handOne, ...startHandOne]);
-            // topCard = shuffled.shift();
-            // setShuffled(shuffled);
-            // handTwo.push(topCard);
-            // setHandTwo(handTwo);
+        setHand([...hand, ...startHand]);
         setCardsDelt(true);
     }
 
     useEffect(() => {
-        startGame();
+        socket.on('handshake', () => console.log(`${socket.id} is here!`));
+        socket.emit('joinRoom', roomName);
     }, []);
 
     const drawTile = () => {
         if (shuffled.length > 0) {
             let topTile = shuffled.shift();
             setShuffled(shuffled);
-            setHandOne([...handOne, topTile]);
+            setHand([...hand, topTile]);
             setHasDrawn(true);
         }
     }
 
     const selectTile = tileId => {
-        console.log(tileId)
-        let tile = handOne.find(function(t) {
+        let tile = {};
+        tile = hand.find(function(t) {
             return t.id === tileId
         });
-        console.log(tile);
         setSelectedTile({
             id: tile.id,
             name: tile.name,
             display: tile.display
         });
-        console.log(selectedTile);
     }
 
     const playTile = () => {
         if (selectedTile.name !== '') {
-            let newHandOne = handOne.filter(t => t.id !== selectedTile.id);
-            setHandOne(newHandOne);
+            let newHand = hand.filter(t => t.id !== selectedTile.id);
+            setHand(newHand);
             let playedTile = selectedTile;
             setTable([...table, playedTile]);
             setSelectedTile({ id: 0, name: '', display: '' });
@@ -96,8 +84,8 @@ export default props => {
                 match = key;
                 let newTable = table.filter(t => t.name !== match);
                 setTable(newTable);
-                let newScore = playerOneScore + 1;
-                setPlayerOneScore(newScore);
+                let newScore = playerScore + 1;
+                setPlayerScore(newScore);
             } 
         }
         setHasDrawn(false);
@@ -109,40 +97,44 @@ export default props => {
     }
 
     const checkEndGame = () => {
-        if (shuffled.length <= 0 && handOne.length <= 0 && table.length <= 0) {
+        if (shuffled.length <= 0 && hand.length <= 0 && table.length <= 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    const [{ isDragging }, drag] = useDrag({
-        item: {
-            type: ItemTypes.CARD,
-            id: props._id,
-        },
-        collect: monitor => ({
-            isDragging: !!monitor.isDragging(),
-        })
-    });
+    const submitHandler = e => {
+        e.preventDefault();
+        socket.emit('message', { room: roomName, message: message });
+        setChatLog([...chatLog, message]);
+        setMessage('');
+    }
 
-    // const [{ isOver }, drop] = useDrop({
-    //     accept: ItemTypes.CARD,
-    //     isOver: !!monitor.isOver()
-    // })
-
+    
+    socket.on('message', data => setChatLog([...chatLog, data]));
 
     return (
-        <CardContext.Provider value={(selectedTile)}>
         <div className="row" style={{height: 700}}>
-            <DndProvider backend={HTML5Backend}>
-            <div className="col-sm-3 border border-dark rounded m-1 h-100 p-4" >
-                <p>Player Ones's Matches: {playerOneScore}</p>
-                <p>Player Two's Matches: 0</p>
+            <div className="col-sm-3 border border-dark rounded m-1 h-100">
+                <p>Total Matches: {playerScore}</p>
                 <p>Tiles Left in Deck: {shuffled.length}</p>
                 <button className="btn btn-success d-block mb-2" onClick={drawTile} disabled={hasDrawn}>Draw</button>
                 <button className="btn btn-info d-block mb-2" onClick={playTile} disabled={hasPlayedTile}>Play Tile</button>
                 <button className="btn btn-primary d-block mb-2" onClick={() => checkMatch(table)}>Check Match</button>
+                <div className="border border-dark mb-2 w-100" readOnly style={{overflowY: 'auto', height: 300}}>
+                    <ul style={{listStyle: "none"}}>
+                        {
+                            chatLog.map((mess, i) => 
+                                <li key={i} style={{marginLeft: -35}}>{mess}</li>
+                            )
+                        }
+                    </ul>
+                </div>
+                <form onSubmit={submitHandler}>
+                    <input type="text" name="message" className="form-control d-block mb-2" onChange={e => setMessage(e.target.value)} value={message}/>
+                    <button type="submit" className="btn btn-primary">Message</button>
+                </form>
             </div>
             <div className="col-sm-8">
                 <div className="row border border-dark rounded m-1 h-50 p-1">
@@ -157,17 +149,18 @@ export default props => {
                 <div className="row border border-dark rounded m-1 h-50 p-1" id="hand">
                     {
                         cardsDelt ?
-                        handOne.map((tile, i) => 
-                            <div key={i} id={tile.id} className="card m-1" ref={drag} opacity={isDragging ? '0.5' : '1'} style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)} >
+                            hand.map((tile, i) => 
+                                <div key={i} id={tile.id} className="card m-1" style={{height: 150, width: 150}} onClick={() => selectTile(tile.id)}>
                                     <div className="card-body text-center" dangerouslySetInnerHTML={{__html: tile.display}}></div>
-                            </div>
-                        )
-                        : ''
+                                </div>
+                            )
+                        :
+                        <button className="btn btn-success offset-4 col-sm-4 h-25" onClick={startGame}>Start Game</button>
                     }
                 </div>
             </div>
-            </DndProvider>
+        
         </div>
-        </CardContext.Provider>
+    
     )
 }

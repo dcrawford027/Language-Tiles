@@ -11,13 +11,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 function App() {
   return (
     <div className="container">
-      <DndProvider backend={HTML5Backend}>
-        <Router>
-          <Home path="/"/>
-          <Games path="/games"/>
-          <Board path="/games/:id"/>
-        </Router>
-      </DndProvider>
+      <Router>
+        <Home path="/"/>
+        <Games path="/games"/>
+        <Board path="/games/:roomName"/>
+      </Router>
     </div>
   );
 }
